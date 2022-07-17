@@ -8,7 +8,7 @@ This documentation is sectioned as follows:
 * Data Gathering
 * Data Wrangling
 * Exploratory Data Analysis
-* Data Ingestion
+* Data Ingestion and Transformation
 * Data Modeling
 * Report Background Design
 * Data Visualization
@@ -16,7 +16,7 @@ This documentation is sectioned as follows:
 
 
 ### Data Gathering
-As stated above, Udacity provided me with the dataset for this projeect. However, the dataset is publicly available on kaggle.com and can be checked up on the files section of this repo. It samples little above 110,000 patients (after cleaning and invalid data removed) with primarily 12 attributes about them. 
+As stated above, Udacity provided me with the dataset for this projeect. However, the dataset is publicly available on <a href = "https://www.kaggle.com/datasets/joniarroba/noshowappointments">kaggle.com </a> and can be checked up on the files section of this repo. It samples little above 110,000 patients (after cleaning and invalid data removed) with primarily 12 attributes about them. 
 
 
 ### Data Wrangling
@@ -24,5 +24,14 @@ The dataset, after importing was checked for some quality issues. After running 
 
 ### Exploratory Data Analysis
 The Dataset was explored to get answers to some specific questions. These questions include:
-*__Does the difference between ScheduledDay and AppointmentDay significantly impact the Show-up possibility?
-__
+* Does the difference between ScheduledDay and AppointmentDay significantly impact Show-Up possibility?
+* What Age-group are more likely to show up for their appointment?
+* Does receiving sms impact show-up rate?
+* Is there a relationship between the weekday of appointment and the possibility of show-up?
+
+The above questions were explored in the dataset for possible patterns and/or answers. Some of the answers are stated in the conclusion part of this doc. (See also the .html file)
+
+
+### Data Ingestion and Transformation
+After a keen exploratory analysis in the jupyter, i went further to run further exploration and descriptive analysis in Power BI. Although this is out of the project, but I saw it essential for a clearer visualization of happenings within the dataset as well as a cleaner revelation of what's inherent. The dataset was imported into Power BI and transformed using Power Query (See the .txt files for the M code)
+
