@@ -1,0 +1,27 @@
+let
+    Source = Csv.Document(File.Contents("C:\Desktop\Personal\ALX-T\Project 1\noshowappointments-kagglev2-may-2016.csv"),[Delimiter=",", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"PatientId", Int64.Type}, {"AppointmentID", Int64.Type}, {"Gender", type text}, {"ScheduledDay", type datetime}, {"AppointmentDay", type datetime}, {"Age", Int64.Type}, {"Neighbourhood", type text}, {"Scholarship", Int64.Type}, {"Hipertension", Int64.Type}, {"Diabetes", Int64.Type}, {"Alcoholism", Int64.Type}, {"Handcap", Int64.Type}, {"SMS_received", Int64.Type}, {"No-show", type text}}),
+    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"PatientId", "AppointmentID"}),
+    #"Changed Type1" = Table.TransformColumnTypes(#"Removed Columns",{{"ScheduledDay", type date}, {"AppointmentDay", type date}}),
+    #"Added Custom" = Table.AddColumn(#"Changed Type1", "Waiting Days", each [AppointmentDay] - [ScheduledDay]),
+    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom",{{"Waiting Days", Int64.Type}}),
+    #"Reordered Columns" = Table.ReorderColumns(#"Changed Type2",{"Gender", "ScheduledDay", "AppointmentDay", "Waiting Days", "Age", "Neighbourhood", "Scholarship", "Hipertension", "Diabetes", "Alcoholism", "Handcap", "SMS_received", "No-show"}),
+    #"Added Conditional Column" = Table.AddColumn(#"Reordered Columns", "Scholarship Status", each if [Scholarship] = 1 then "On" else "Not"),
+    #"Reordered Columns1" = Table.ReorderColumns(#"Added Conditional Column",{"Gender", "ScheduledDay", "AppointmentDay", "Waiting Days", "Age", "Neighbourhood", "Scholarship", "Scholarship Status", "Hipertension", "Diabetes", "Alcoholism", "Handcap", "SMS_received", "No-show"}),
+    #"Changed Type3" = Table.TransformColumnTypes(#"Reordered Columns1",{{"Scholarship Status", type text}}),
+    #"Removed Columns1" = Table.RemoveColumns(#"Changed Type3",{"Scholarship"}),
+    #"Added Conditional Column1" = Table.AddColumn(#"Removed Columns1", "Custom", each if [SMS_received] = 1 then "Recieved" else "Not Recieved"),
+    #"Removed Columns2" = Table.RemoveColumns(#"Added Conditional Column1",{"SMS_received"}),
+    #"Reordered Columns2" = Table.ReorderColumns(#"Removed Columns2",{"Gender", "ScheduledDay", "AppointmentDay", "Waiting Days", "Age", "Neighbourhood", "Scholarship Status", "Hipertension", "Diabetes", "Alcoholism", "Handcap", "Custom", "No-show"}),
+    #"Renamed Columns" = Table.RenameColumns(#"Reordered Columns2",{{"Custom", "SMS_Recieved"}}),
+    #"Changed Type4" = Table.TransformColumnTypes(#"Renamed Columns",{{"SMS_Recieved", type text}}),
+    #"Added Conditional Column2" = Table.AddColumn(#"Changed Type4", "Custom", each if [#"No-show"] = "No" then "Yes" else "No"),
+    #"Removed Columns3" = Table.RemoveColumns(#"Added Conditional Column2",{"No-show"}),
+    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns3",{{"Custom", "No-Show"}}),
+    #"Added Conditional Column3" = Table.AddColumn(#"Renamed Columns1", "Age_Categories", each if [Age] <= 1 then "Infant" else if [Age] <= 7 then "Toddler" else if [Age] <= 12 then "Youngster" else if [Age] <= 18 then "Teenager" else if [Age] <= 30 then "Young Adult" else if [Age] <= 60 then "Adult" else if [Age] <= 90 then "Senior_Citizen" else "Aged"),
+    #"Reordered Columns3" = Table.ReorderColumns(#"Added Conditional Column3",{"Gender", "ScheduledDay", "AppointmentDay", "Waiting Days", "Age", "Age_Categories", "Neighbourhood", "Scholarship Status", "Hipertension", "Diabetes", "Alcoholism", "Handcap", "SMS_Recieved", "No-Show"}),
+    #"Removed Other Columns" = Table.SelectColumns(#"Reordered Columns3",{"Gender"}),
+    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns")
+in
+    #"Removed Duplicates"

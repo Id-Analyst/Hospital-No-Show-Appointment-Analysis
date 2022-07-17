@@ -1,0 +1,7 @@
+let
+    Source = #"No-Show Appointments",
+    #"Removed Other Columns" = Table.SelectColumns(Source,{"Age_Categories"}),
+    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns"),
+    #"Changed Type" = Table.TransformColumnTypes(#"Removed Duplicates",{{"Age_Categories", type text}})
+in
+    #"Changed Type"
