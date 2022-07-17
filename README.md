@@ -38,12 +38,12 @@ After a keen exploratory analysis in the jupyter, i went on to run further explo
 ### Data Modeling
 Additional tables were needed for analysis and segmentation. Such tables included the Date table, segmenting the patients into genders, age brackets and other dimensions for analysis. A data model was created out of the loaded tables in Power BI. 
 
-<img src = "https://github.com/Id-Analyst/Hospital-No-Show-Appointment-Analysis/blob/main/Data%20Model.JPG" width = "500" height = "340" > 
+<img src = "https://github.com/Id-Analyst/Hospital-No-Show-Appointment-Analysis/blob/main/Data%20Model.JPG" width = "1200" height = "640" > 
 
 ### Report Background Design 
 The report layout was designed in Power Point. Inspiration for the design was gotten from <a href = "www.novypro.com/inspiration"> Novypro </a>. 
 
-<img src = "https://github.com/Id-Analyst/Hospital-No-Show-Appointment-Analysis/blob/main/No-Show.png" width = "500" height = "340">
+<img src = "https://github.com/Id-Analyst/Hospital-No-Show-Appointment-Analysis/blob/main/No-Show.png" width = "1200" height = "640">
 
 ### Data Visualization
 The dataset was visualized in Power BI. I did a lot of summary statistics on the dataset to have an idea of patients distribution by the dimensions (attributes). This, i paid attention to since major exploration had been done in the jupyter notebook. Click <a href = "https://github.com/Id-Analyst/Hospital-No-Show-Appointment-Analysis/blob/main/No-Show%20Appointment%20Report.pbix"> here </a> to view the visualizations. 
